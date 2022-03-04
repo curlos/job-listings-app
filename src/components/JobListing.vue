@@ -45,7 +45,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0px 6px 16px hsl(180, 29%, 50%);
+    box-shadow: rgba(91, 164, 164, 0.15) 0px 20px 25px -5px, rgba(91, 164, 164, 0.04) 0px 10px 10px -5px;
   }
 
   .left {

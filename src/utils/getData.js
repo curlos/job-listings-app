@@ -12,8 +12,7 @@ export const getData = () => (
       "postedAt": "1d ago",
       "contract": "Full Time",
       "location": "USA Only",
-      "languages": ["HTML", "CSS", "JavaScript"],
-      "tools": ["Frontend", "Senior", "HTML", "CSS", "JavaScript"]
+      "languages": ["HTML", "CSS", "JavaScript"]
     },
     {
       "id": 2,

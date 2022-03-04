@@ -21,8 +21,8 @@
     </div>
 
     <div class="right">
-      <div :key="tool" v-for="tool in job.tools" class="tool" @click="addFilter(tool)">
-        {{ tool }}
+      <div :key="filter" v-for="filter in filters" class="filter" @click="addFilter(filter)">
+        {{ filter }}
       </div>
     </div>
   </div>
@@ -36,6 +36,34 @@ export default {
     addFilter: Function,
     removeFilter: Function
   },
+  data() {
+    return {
+      filters: [],
+    }
+  },
+  mounted() {
+    let endFilters = []
+
+    if (this.job.role) {
+      endFilters.push(this.job.role)
+    }
+
+    if (this.job.level) {
+      endFilters.push(this.job.level)
+    }
+
+    if (this.job.languages) {
+      this.job.languages.forEach((language) => endFilters.push(language))
+    }
+
+    if (this.job.filters) {
+      this.job.filters.forEach((tool) => endFilters.push(tool))
+    }
+
+    console.log(endFilters)
+    
+    this.filters = endFilters
+  }
 }
 </script>
 
@@ -70,7 +98,7 @@ export default {
     gap: 10px;
   }
 
-  .tool {
+  .filter {
     background-color: hsl(180, 52%, 96%);
     color: #5CA5A5;
     padding: 10px;
@@ -81,7 +109,7 @@ export default {
     cursor: pointer;
   }
 
-  .tool:active {
+  .filter:active {
     background-color: #5CA5A5;
     color: #FFFFFF;
   }
@@ -177,7 +205,7 @@ export default {
       padding-top: 15px;
     }
 
-    .tool {
+    .filter {
 
     }
   }

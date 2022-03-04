@@ -17,7 +17,7 @@
     </div>
 
     <div class="jobs">
-      <div :key="job.id" v-for="job in jobs">
+      <div :key="job.id" v-for="job in filteredJobs">
         <JobListing :job="job" :addFilter="addFilter" :removeFilter="removeFilter" />
       </div>
     </div>
@@ -35,7 +35,8 @@ export default {
   },
   data() {
     return {
-      jobs: getData(),
+      allJobs: getData(),
+      filteredJobs: getData(),
       filters: []
     }
   },
@@ -53,7 +54,10 @@ export default {
     },
     clearFilters() {
       this.filters = []
-    }
+    },
+    // filterJobs(filters) {
+    //   this.filteredJobs = this.filteredJobs.filter((job) => job.filters)
+    // }
   },
   mounted() {
     console.log(this.jobs)

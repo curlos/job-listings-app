@@ -40,27 +40,57 @@ export default {
       filters: []
     }
   },
+  watch: {
+    filters: {
+      handler(newFilters) {
+        this.filterJobs(Object.values(newFilters))
+      },
+      immediate: true
+    }
+  },
   methods: {
     addFilter(filter) {
       if (!this.filters.includes(filter)) {
-        this.filters.unshift(filter)
+        this.filters = [filter, ...this.filters]
       }
     },
     removeFilter(filter) {
       if (this.filters.includes(filter)) {
-        console.log(filter)
-        this.filters = this.filters.filter((f) => f !== filter )
+        this.filters = this.filters.filter((f) => f !== filter)
       }
     },
     clearFilters() {
       this.filters = []
     },
-    // filterJobs(filters) {
-    //   this.filteredJobs = this.filteredJobs.filter((job) => job.filters)
-    // }
-  },
-  mounted() {
-    console.log(this.jobs)
+    filterJobs(filters) {
+      if (filters.length) {
+        this.filteredJobs = this.allJobs.filter((job) => {
+          for (let filter of filters) {
+            if (job.role === filter) {
+              continue
+            }
+
+            if (job.level === filter) {
+              continue
+            }
+
+            if (job.languages && job.languages.includes(filter)) {
+              continue
+            }
+
+            if (job.tools && job.tools.includes(filter)) {
+              continue
+            }
+
+            return false
+          }
+          return job
+        })
+        window.scrollTo(0,0)
+      } else {
+        this.filteredJobs = this.allJobs
+      }
+    }
   }
 }
 </script>
@@ -95,6 +125,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-top: 30px;
   }
 
   .filtersWrapper {

@@ -58,11 +58,9 @@ export default {
       this.job.languages.forEach((language) => endFilters.push(language))
     }
 
-    if (this.job.filters) {
-      this.job.filters.forEach((tool) => endFilters.push(tool))
+    if (this.job.tools) {
+      this.job.tools.forEach((tool) => endFilters.push(tool))
     }
-
-    console.log(endFilters)
     
     this.filters = endFilters
   }

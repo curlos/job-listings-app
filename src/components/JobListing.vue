@@ -10,18 +10,18 @@
         </div>
         <div class="position">{{ job.position }}</div>
         <div class="info">
-          <span>{{ job.postedAt }}</span>
-          <span class="circle"></span>
-          <span>{{ job.contract }}</span>
-          <span class="circle"/>
-          <span>{{ job.location }}</span>
+          <div>{{ job.postedAt }}</div>
+          <div class="circle" />
+          <div>{{ job.contract }}</div>
+          <div class="circle"/>
+          <div>{{ job.location }}</div>
         </div>
       </div>
       
     </div>
 
     <div class="right">
-      <div :key="tool" v-for="tool in job.tools" class="tool">
+      <div :key="tool" v-for="tool in job.tools" class="tool" @click="addFilter(tool)">
         {{ tool }}
       </div>
     </div>
@@ -32,8 +32,10 @@
 export default {
   name: 'JobListing',
   props: {
-    job: Object
-  }
+    job: Object,
+    addFilter: Function,
+    removeFilter: Function
+  },
 }
 </script>
 
@@ -45,6 +47,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 50px;
     box-shadow: rgba(91, 164, 164, 0.15) 0px 20px 25px -5px, rgba(91, 164, 164, 0.04) 0px 10px 10px -5px;
   }
 
@@ -75,12 +78,23 @@ export default {
     font-size: 13px;
     letter-spacing: -0.1px;
     font-weight: bold;
+    cursor: pointer;
+  }
+
+  .tool:active {
+    background-color: #5CA5A5;
+    color: #FFFFFF;
   }
 
   .position {
     font-weight: bold;
     font-size: 18px;
     color: #2B3939;
+    cursor: pointer;
+  }
+
+  .position:active {
+    color: #5CA5A5;
   }
 
   .companyAndDate {
@@ -113,7 +127,12 @@ export default {
     background-color: #2B3939;
   }
 
-  .info span {
+  .info {
+    display: flex;
+    align-items: center;
+  }
+
+  .info div {
     color: #7C8F8F;
     font-size: 15px;
     letter-spacing: -0.12px;
@@ -123,7 +142,43 @@ export default {
   .circle {
     height: 4px;
     width: 4px;
-    color: red;
+    background-color: #B7C4C4;
     border-radius: 50%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .wrapper {
+      display: block;
+
+    }
+
+    .left {
+      display: block;
+      margin-top: -44px;
+    }
+
+    .left img {
+      height: 48px;
+      width: 48px;
+      position: relative;
+    }
+
+    .position {
+      font-size: 15px;
+    }
+
+    .info span {
+      font-size: 13px;
+    }
+
+    .right {
+      margin-top: 15px;
+      border-top: 1px solid #B7C4C4;
+      padding-top: 15px;
+    }
+
+    .tool {
+
+    }
   }
 </style>

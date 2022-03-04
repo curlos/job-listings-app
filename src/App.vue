@@ -4,31 +4,21 @@
     <img src="/images/bg-header-desktop.svg" alt="" class="bgImage"/>
 
     <div>
-      <div class="filtersWrapper">
+      <div v-if="filters.length" class="filtersWrapper">
         <div class="filters">
-          <div class="filter">
-            <div>CSS</div>
-            <img src="/images/icon-remove.svg" alt="" />
-          </div>
-
-          <div class="filter">
-            <div>CSS</div>
-            <img src="/images/icon-remove.svg" alt="" />
-          </div>
-
-          <div class="filter">
-            <div>CSS</div>
-            <img src="/images/icon-remove.svg" alt="" />
+          <div :key="filter" v-for="filter in filters" class="filter">
+            <div>{{ filter }}</div>
+            <img src="/images/icon-remove.svg" alt="" @click="removeFilter(filter)"/>
           </div>
         </div>
 
-        <button class="clear">Clear</button>
+        <button class="clear" @click="clearFilters">Clear</button>
       </div>
     </div>
 
     <div class="jobs">
       <div :key="job.id" v-for="job in jobs">
-        <JobListing :job="job"/>
+        <JobListing :job="job" :addFilter="addFilter" :removeFilter="removeFilter" />
       </div>
     </div>
   </div>
@@ -45,7 +35,24 @@ export default {
   },
   data() {
     return {
-      jobs: getData()
+      jobs: getData(),
+      filters: []
+    }
+  },
+  methods: {
+    addFilter(filter) {
+      if (!this.filters.includes(filter)) {
+        this.filters.unshift(filter)
+      }
+    },
+    removeFilter(filter) {
+      if (this.filters.includes(filter)) {
+        console.log(filter)
+        this.filters = this.filters.filter((f) => f !== filter )
+      }
+    },
+    clearFilters() {
+      this.filters = []
     }
   },
   mounted() {
@@ -79,8 +86,8 @@ export default {
   }
 
   .jobs {
-    margin-top: 30px;
     padding: 40px;
+    padding-top: 50px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -149,5 +156,17 @@ export default {
 
   .clear:active {
     text-decoration: underline;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .filtersWrapper {
+      margin: 20px;
+      margin-top: -60px;
+    }
+
+    .jobs {
+      padding: 20px;
+      gap: 40px;
+    }
   }
 </style>

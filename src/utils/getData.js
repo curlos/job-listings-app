@@ -13,7 +13,7 @@ export const getData = () => (
       "contract": "Full Time",
       "location": "USA Only",
       "languages": ["HTML", "CSS", "JavaScript"],
-      "tools": []
+      "tools": ["Frontend", "Senior", "HTML", "CSS", "JavaScript"]
     },
     {
       "id": 2,

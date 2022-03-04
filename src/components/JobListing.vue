@@ -1,28 +1,30 @@
 <template>
-  <div class="wrapper">
-    <div class="left">
-      <img :src="job.logo.slice(1,)" alt="job.company" />
-      <div class="leftDetails">
-        <div class="companyAndDate">
-          <div class="company">{{ job.company }}</div>
-          <button v-if="job.new" class="new">NEW!</button>
-          <button v-if="job.featured" class="featured">FEATURED</button>
+  <div :class="{'wrapperContainer': true, 'featuredListing': job.featured}">
+    <div class="wrapper">
+      <div class="left">
+        <img :src="job.logo.slice(1,)" alt="job.company" />
+        <div class="leftDetails">
+          <div class="companyAndDate">
+            <div class="company">{{ job.company }}</div>
+            <button v-if="job.new" class="new">NEW!</button>
+            <button v-if="job.featured" class="featured">FEATURED</button>
+          </div>
+          <div class="position">{{ job.position }}</div>
+          <div class="info">
+            <div>{{ job.postedAt }}</div>
+            <div class="circle" />
+            <div>{{ job.contract }}</div>
+            <div class="circle"/>
+            <div>{{ job.location }}</div>
+          </div>
         </div>
-        <div class="position">{{ job.position }}</div>
-        <div class="info">
-          <div>{{ job.postedAt }}</div>
-          <div class="circle" />
-          <div>{{ job.contract }}</div>
-          <div class="circle"/>
-          <div>{{ job.location }}</div>
-        </div>
+        
       </div>
-      
-    </div>
 
-    <div class="right">
-      <div :key="filter" v-for="filter in filters" class="filter" @click="addFilter(filter)">
-        {{ filter }}
+      <div class="right">
+        <div :key="filter" v-for="filter in filters" class="filter" @click="addFilter(filter)">
+          {{ filter }}
+        </div>
       </div>
     </div>
   </div>
@@ -68,15 +70,27 @@ export default {
 </script>
 
 <style scoped>
+  .wrapperContainer {
+    border-left: 5px solid #FFFFFF;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: rgba(91, 164, 164, 0.15) 0px 20px 25px -5px, rgba(91, 164, 164, 0.04) 0px 10px 10px -5px;
+  }
+
+  .featuredListing {
+    border-color: #5CA5A5;
+  }
+
   .wrapper {
     border-radius: 10px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
     background-color: #FFFFFF;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 50px;
-    box-shadow: rgba(91, 164, 164, 0.15) 0px 20px 25px -5px, rgba(91, 164, 164, 0.04) 0px 10px 10px -5px;
   }
 
   .left {
